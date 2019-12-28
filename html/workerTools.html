@@ -32,13 +32,7 @@
                     Adres e-mail
                     </th>
                     <th class="th-sm">
-                      <form class="form-inline">
-                        <div class="form-group">
-                            <input type="date" ng-model="ctrl.applicationsDate" class="form-control" ng-change="ctrl.ApplicationsDateSort()" onkeydown="return false">
-                        </div>
-                    </form></br>
-                    </div>   
-                    </div>                    
+                                     
                     Data <div class="orderApplications" ng-click="ctrl.dateOrder('pending')" style="display: inline; cursor: pointer;"><b><i class="fa fa-angle-down"></i></b></div>
                     </th>                    
                   </tr>
@@ -90,13 +84,10 @@
                             <input type="search" ng-model="ctrl.SearchTextEmail" class="form-control" placeholder="Adres e-mail" ng-change="ctrl.searchEmail('refused')">
                         </div>
                     </form></br>
+                    Adres e-mail
                 </th>
                 <th class="th-sm">
-                  <form class="form-inline">
-                    <div class="form-group">
-                        <input type="date" ng-model="ctrl.applicationsDate" class="form-control" ng-change="ctrl.ApplicationsDateSort()" onkeydown="return false">
-                    </div>
-                </form></br>
+                  
                 Data <div class="orderApplications" ng-click="ctrl.dateOrder('refused')" style="display: inline; cursor: pointer;"><b><i class="fa fa-angle-down"></i></b></div>
                 </th>                    
               </tr>

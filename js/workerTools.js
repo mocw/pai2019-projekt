@@ -18,10 +18,6 @@ app.controller("Worker", [ '$http', '$scope','globals', 'common', function($http
         return true;
     };
 
-    ctrl.ApplicationsDateSort = function() {
-        alert(ctrl.applicationsDate);
-    };
-
     ctrl.searchEmail = function(state) {
         var limit = ctrl.limit;
         var status = state;
@@ -52,7 +48,8 @@ app.controller("Worker", [ '$http', '$scope','globals', 'common', function($http
         var status = state;
         if(limit <= 0) limit = 1;
         
-        $http.get('/applications?limit=' + limit + '&status=' + status + '&order=' + ctrl.applicationsOrder).then(
+        $http.get('/applications?limit=' + limit + '&status=' + status + '&email=' + ctrl.SearchTextEmail+
+         '&order=' + ctrl.applicationsOrder).then(
             function (rep) {
                 ctrl.applications = rep.data;
             },
