@@ -1,0 +1,18 @@
+<form name="applicationForm">
+
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Złóż wniosek o założenia konta</h3>
+    </div>
+
+    <div class="modal-body" id="modal-body">
+        <label for="email">Email</label>
+        <input id="email" type="email" class="form-control" ng-model="ctrl.creds.applicationEmail" required="true" />
+    </div>
+
+    <div class="modal-footer">
+    <div ng-bind-html="ctrl.applicationAlert()" style="float:left"></div>
+        <button class="btn btn-success fa fa-sign-in" type="submit" ng-disabled="applicationForm.$invalid" ng-click="ctrl.sendApplication()"></button>
+        <button class="btn btn-danger fa fa-times" type="button" ng-click="ctrl.cancel()"></button>
+    </div>
+
+</form>

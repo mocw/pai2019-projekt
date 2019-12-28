@@ -1,0 +1,127 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
+
+<div ng-if="ctrl.isWorker()" ng-init="ctrl.showApplications(); ctrl.displayApplications('pending')">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <ul class="nav navbar-nav"> 
+            <li><a ng-click="ctrl.showApplications(); ctrl.displayApplications('pending')" id="allMenu" class="menu">Wnioski oczekujące</a></li>
+            <!-- <li><a ng-click="ctrl.showAcceptedApplications()" id="acceptedMenu" class="menu">Wnioski zaakceptowane</a></li> -->
+            <li><a ng-click="ctrl.showRefusedApplications(); ctrl.displayApplications('refused')" id="refusedMenu" class="menu">Wnioski odrzucone</a></li>
+          </ul>
+        </div>
+      </nav>
+      <!-- ALL -->
+        <div id="all" class="applications" style="display: none"> 
+            <table class="table table-hover data-table sort display" cellspacing="0" width="100%">
+                <thead>
+                  <tr>
+                    <form class="form-inline">
+                    <div class="form-group">
+                    <label>Limit </label></br>
+                    Rekordów <span ng-bind="ctrl.history.length"></span> / <span ng-bind="ctrl.ApplicationsCount"></span>
+                    <input type="number" placeholder="Limit" ng-model="ctrl.limit" ng-change="ctrl.displayApplications('pending')"/>
+                    </div>
+                    </form>
+                    <th class="th-sm">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <input type="text" ng-model="ctrl.SearchTextEmail" class="form-control" placeholder="Adres e-mail" ng-change="ctrl.searchEmail('pending')">
+                            </div>
+                        </form></br>
+                    Adres e-mail
+                    </th>
+                    <th class="th-sm">
+                      <form class="form-inline">
+                        <div class="form-group">
+                            <input type="date" ng-model="ctrl.applicationsDate" class="form-control" ng-change="ctrl.ApplicationsDateSort()" onkeydown="return false">
+                        </div>
+                    </form></br>
+                    </div>   
+                    </div>                    
+                    Data <div class="orderApplications" ng-click="ctrl.dateOrder('pending')" style="display: inline; cursor: pointer;"><b><i class="fa fa-angle-down"></i></b></div>
+                    </th>                    
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="applications in ctrl.applications" style="cursor: pointer">
+                    <td ng-attr-class="{{applications._id}}" style="text-align: center;" ng-click="ctrl.showButtons(applications._id)">
+                      {{applications.email}} 
+                      <div style="display: inline" id="{{applications._id}}arrow">▼</div>
+                    </br><button ng-click="ctrl.refuseApplication(applications);  $event.stopPropagation();" ng-attr-id="{{applications._id}}negative" style="display: none" class="btn" >
+                      <i class="fa fa-remove" style="color: red;"></i></button> 
+                      <button ng-click="ctrl.acceptApplication(applications);  $event.stopPropagation();" ng-attr-id="{{applications._id}}positive" style="display: none" class="btn" >
+                        <i class="fa fa-check" style="color: green;"></i></button>                    
+                    </td>
+                    <td ng-bind="ctrl.stamp2date(applications.date)" ng-attr-class="{{applications._id}}"></td>
+                  </tr>                 
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th>Adres e-mail
+                    </th>
+                    <th>Data
+                    </th>
+                  </tr>
+                </tfoot>
+              </table>
+        </div>
+
+        <!-- ZAAKCEPTOWANE -->
+        <!-- <div id="accepted" class="applications" style="display: none">
+        ZAAKCEPTOWANE
+        </div> -->
+
+        <!-- ODRZUCONE -->
+        <div id="refused" class="applications" style="display: none">
+          <table class="table table-hover data-table sort display" cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                <form class="form-inline">
+                <div class="form-group">
+                <label>Limit </label></br>
+                Rekordów <span ng-bind="ctrl.history.length"></span> / <span ng-bind="ctrl.ApplicationsCount"></span>
+                <input type="number" placeholder="Limit" ng-model="ctrl.limit" ng-change="ctrl.displayApplications('refused')"/>
+                </div>
+                </form>
+                <th class="th-sm">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <input type="search" ng-model="ctrl.SearchTextEmail" class="form-control" placeholder="Adres e-mail" ng-change="ctrl.searchEmail('refused')">
+                        </div>
+                    </form></br>
+                Adres https://github.com/mocw/pai2019-projekt.git
+                </th>
+                <th class="th-sm">
+                  <form class="form-inline">
+                    <div class="form-group">
+                        <input type="date" ng-model="ctrl.applicationsDate" class="form-control" ng-change="ctrl.ApplicationsDateSort()" onkeydown="return false">
+                    </div>
+                </form></br>
+                Data <div class="orderApplications" ng-click="ctrl.dateOrder('refused')" style="display: inline; cursor: pointer;"><b><i class="fa fa-angle-down"></i></b></div>
+                </th>                    
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="applicationsRefused in ctrl.applications" style="cursor: pointer">
+                <td ng-attr-class="{{applicationsRefused._id}}" style="text-align: center;" ng-click="ctrl.showButtonRefused(applicationsRefused._id)">
+                  {{applicationsRefused.email}} 
+                  <div style="display: inline" id="{{applicationsRefused._id}}arrowR">▼</div>
+                </br>
+                  <button ng-click="ctrl.acceptApplication(applicationsRefused);  $event.stopPropagation();" ng-attr-id="{{applicationsRefused._id}}pos" style="display: none" class="btn">
+                    <i class="fa fa-check" style="color: green;"></i></button>                    
+                </td>
+                <td ng-bind="ctrl.stamp2date(applicationsRefused.date)" ng-attr-class="{{applicationsRefused._id}}"></td>
+              </tr>                 
+            </tbody>
+            <tfoot>
+              <tr>
+                <th>Adres e-mail
+                </th>
+                <th>Data
+                </th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+</div>

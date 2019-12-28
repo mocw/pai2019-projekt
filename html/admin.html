@@ -1,0 +1,43 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div ng-if="ctrl.Root()" ng-init="ctrl.showAllUsers(); ctrl.displayUsers()">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <ul class="nav navbar-nav"> 
+        <li><a ng-click="ctrl.showAllUsers(); ctrl.displayUsers()" id="addWorkerMenu" class="menu">Dodaj pracownika</a></li>
+        <li><a ng-click="ctrl.showWorkerOperations(); ctrl.displayWorkers()" id="workerOpMenu" class="menu">Usuń pracownika</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div id="add-worker" class="workers" style="display: none"> 
+    <h3>Dodaj pracownika</h3>
+    <h4>Kliknij na użytkownika, aby go dodać</h4>
+    <table class="table table-hover" style="cursor: pointer">
+      <tr>
+        <th style="text-align: center; cursor: not-allowed">Adres email</th>
+      </tr>
+        <td style="text-align: center;" ng-bind="users"></td> 
+        <tr ng-repeat="users in ctrl.accounts"  ng-class="{ 'bg-red': users.email == ctrl.email }"> 
+          <td style="text-align: center;" ng-bind="users._id" hidden></td> 
+        <td style="text-align: center;" ng-click="ctrl.addWorker(users)">{{users.email}} <i class="fa fa-plus"></i></td> 
+        </tr>
+    </table>  
+  </div> 
+  
+  <div id="workerop" class="workers" style="display: none"> 
+  <table class="table table-hover" style="cursor: pointer">
+    <tr>
+      <th style="text-align: center; cursor: not-allowed">Adres email</th>
+    </tr>
+      <td style="text-align: center;" ng-bind="workers"></td> 
+      <tr ng-repeat="workers in ctrl.workers"  ng-class="{ 'bg-red': workers.email == ctrl.email }"> 
+        <td style="text-align: center;" ng-bind="users._id" hidden></td> 
+      <td ng-attr-class="{{workers._id}}" style="text-align: center;" ng-click="ctrl.showOrHideButton(workers._id)">
+        {{workers.email}}
+        <div style="display: inline" id="{{workers._id}}arrow">▼</div>
+      </br><button ng-click="ctrl.deleteWorker(workers);  $event.stopPropagation();" ng-attr-id="{{workers._id}}" style="display: none" class="btn" >
+        <i class="fa fa-remove" style="color: red;"></i></button></td> 
+      </tr>
+  </table>
+  </div>
+
+</div>
