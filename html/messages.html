@@ -1,0 +1,27 @@
+<div ng-if="ctrl.login()" ng-init="ctrl.showSendMessage()">
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <ul class="nav navbar-nav"> 
+            <li><a ng-click="ctrl.showSendMessage()" id="SendMSGMenu" class="menu">Prześlij wiadomość</a></li>
+            <li><a ng-click="ctrl.showInbox()" id="InboxMenu" class="menu">Skrzynka odbiorcza</a></li>
+          </ul>
+        </div>
+      </nav>
+
+    <div id="SendMessage" style="display: none">
+    <h3>Prześlij wiadomość</h3>
+    <input type="text" list="recipients" class="form-inline" placeholder="Email odbiorcy" autocomplete="off" ng-model="ctrl.transaction.recipient">
+    <datalist id="recipients">
+        <option ng-repeat="recipient in ctrl.emails" value="{{recipient}}" ng-bind="recipient"></option>
+    </datalist></br></br>
+    <div class="form-group">
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+  </div>
+    </div>
+
+    <div id="Inbox" style="display: none">
+        <h3>Skrzynka odbiorcza</h3>
+        <h1>Test</h1>
+        </div>
+</div>

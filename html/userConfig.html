@@ -1,0 +1,43 @@
+<div ng-if="ctrl.login()" ng-init="ctrl.changePassword()">
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <ul class="nav navbar-nav"> 
+            <li><a ng-click="ctrl.changePassword()" id="changePasswordMenu" class="menu">Zmień hasło</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div id="changePassword" style="display: none">
+        <div class="form-group mx-sm-3 mb-2">
+            <center>
+            <table>
+            <tr>
+                <td>
+                <label for="exampleInputPassword1">Aktualne hasło<label>                    
+                </td>
+            <td>
+                <input type="password" class="form-control-inline" placeholder="" ng-model="ctrl.changePassword.oldPassword">
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="exampleInputPassword1">Nowe hasło</label>
+                </td>
+                <td>
+                    <input type="password" class="form-control-inline" placeholder=""  ng-model="ctrl.changePassword.newPassword">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="exampleInputPassword1">Powtórz nowe hasło</label>
+                </td>
+                <td>
+                    <input type="password" class="form-control-inline" placeholder="" ng-model="ctrl.changePassword.newPasswordRpt">
+                </td>
+            </tr>            
+            </table>
+            <br><button class="btn btn-primary" ng-disabled="ctrl.formInvalid()"  ng-click="ctrl.changePasswordForm()">Zrób</button>
+          </div>
+      </div>
+</div>

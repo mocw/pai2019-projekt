@@ -15,7 +15,9 @@ app.constant('routes', [
     { route: '/history', templateUrl: '/html/history.html', controller: 'History', controllerAs: 'ctrl', menu: 'Historia' },
     { route: '/trend', templateUrl: '/html/trend.html', controller: 'Trend', controllerAs: 'ctrl', menu: 'Trend' },
     { route: '/adminPanel', templateUrl: '/html/admin.html', controller: 'Admin', controllerAs: 'ctrl', menu: 'Panel Administracyjny'},
-    { route: '/workerTools', templateUrl: '/html/workerTools.html', controller: 'Worker', controllerAs: 'ctrl', menu: 'Dla pracowników'}
+    { route: '/workerTools', templateUrl: '/html/workerTools.html', controller: 'Worker', controllerAs: 'ctrl', menu: 'Dla pracowników'},
+    { route: '/messages', templateUrl: '/html/messages.html', controller: 'Messages', controllerAs: 'ctrl', skipMenu: true},
+    { route: '/userConfig', templateUrl: '/html/userConfig.html', controller: 'UserConfig', controllerAs: 'ctrl', skipMenu: true}
 ]);
 
 
@@ -94,7 +96,8 @@ app.controller('Menu', ['$http', '$rootScope', '$scope', '$location', '$uibModal
             ctrl.menu = [];
             for (var i in routes) {
                 if(routes[i].controller=='Admin' && globals.email!='root@gmail.com') continue;
-                if(routes[i].controller=='Worker'  && globals.isWorker === null) continue; // DOKONCZ!
+                if(routes[i].controller=='Worker'  && globals.isWorker === null) continue; 
+                if(routes[i].skipMenu) continue; 
                 if(routes[i].guest || globals.email) {
                     ctrl.menu.push({route: routes[i].route, title: routes[i].menu});
                 }
@@ -137,17 +140,52 @@ app.controller('Menu', ['$http', '$rootScope', '$scope', '$location', '$uibModal
 
 		ctrl.navClass = function(page) {
 			return page === $location.path() ? 'active' : '';
-		}
+        }
+        
+        ctrl.MessageIcon = function () {
+            if(globals.email) {
+                $('#Messages').show();
+                //POLACZENIE Z BAZA I SPR. CZY SA NOWE WIADOMOSCI
+                return '<span class="fa fa-envelope" aria-hidden="true"></span>';
+            } else {
+                $('#Messages').hide();
+            }
+        }
 
+        ctrl.userConfigIcon = function () {
+            if(globals.email) {
+                $('#userConfig').show();
+                return '<span class="fa fa-user" aria-hidden="true"></span>';
+            } else {
+                $('#userConfig').hide();
+            }
+        };
+        
+        ctrl.userConfig = function () {
+            $location.path('/userConfig');
+        };
+
+        ctrl.testmsg = function () {
+            $location.path('/messages');
+        };
+
+        
 		ctrl.loginIcon = function() {
 			return globals.email ? globals.email + '&nbsp;<span class="fa fa-lg fa-sign-out"></span>' : '<span class="fa fa-lg fa-sign-in"></span>';
         }
 
         ctrl.Application = function(){
-            return globals.email ? '<span></span>' : '<span class="fa fa-user-plus" aria-hidden="true"></span>';
+            // return globals.email ? '' : '<span class="fa fa-user-plus" aria-hidden="true"></span>';
+            if(globals.email){
+                $('#Application').hide();
+            } else {
+                $('#Application').show();
+                return '<span class="fa fa-user-plus" aria-hidden="true"></span>';
+            }
         }
         
         ctrl.application = function() {
+            if (globals.email) return;
                 var modalInstance = $uibModal.open({
                     animation: true,
                     ariaLabelledBy: 'modal-title-top',

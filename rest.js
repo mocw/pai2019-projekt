@@ -407,7 +407,6 @@ module.exports = function(url, req, rep, query, payload, session) {
                             lib.sendJSONWithError(rep, 400, 'Bad request!'); return;
                         }
                         if(account) {
-                            console.log("Kotno zarejestrowane!"); 
                             lib.sendJSONWithError(rep, 400, 'Email already registered!'); return;
                         }
                         common.applications.findOne({email: payload.applicationEmail}, {}, function(err,account){
@@ -427,7 +426,7 @@ module.exports = function(url, req, rep, query, payload, session) {
                                     console.log(err.message);
                                 }
                                 else{
-                                    lib.sendJSON(rep, account);
+                                    lib.sendJSON(rep, response);
                                 }
                             }); 
                          });                                          
@@ -435,6 +434,35 @@ module.exports = function(url, req, rep, query, payload, session) {
                 break;
                 default:
                 lib.sendJSONWithError(rep, 400, 'Invalid method ' + req.method + ' for ' + url);
+                break;
+            }
+        break;
+        case '/password':
+            switch(req.method)
+            {
+                case 'GET':
+                    var passwordChk = query.password;
+                    common.accounts.findOne( {password:passwordChk}, {}, function(err, account) {
+                        if(err || !account) {
+                            lib.sendJSONWithError(rep, 401, 'Bad password');
+                            return;
+                        }
+                        lib.sendJSON(rep, account);
+                    });
+                break;
+
+                case 'POST':
+                    if(!common.sessions[session].accountNo) {
+                        lib.sendJSONWithError(rep, 401, 'You are not logged in'); return;
+                    }
+                    common.accounts.findOneAndUpdate({_id: common.sessions[session].accountNo},
+                        {$set: {password: payload.newPassword}},
+                        function(err, updated) {
+                        if(err) {
+                            lib.sendJSONWithError(rep, 400, err.message); return;
+                        }
+                        lib.sendJSON(rep, updated);
+                    });
                 break;
             }
         break;

@@ -44,8 +44,10 @@
 						</ul>
 
 						<ul class="nav navbar-nav navbar-right">
-						 <!-- <li><a ng-bind-html="ctrl.Root()"></a></li> -->
-						 <li><a ng-bind-html="ctrl.Application()" ng-click="ctrl.application()"></a></li> 
+						 <!-- <li><a ng-bind-html="ctrl.NewMessageIcon()"></a></li> -->
+						 <li id="Application"><a ng-bind-html="ctrl.Application()" ng-click="ctrl.application()"></a></li>
+						 <li id="Messages"><a ng-bind-html="ctrl.MessageIcon()" ng-click="ctrl.testmsg()"></a></li>
+						 <li id="userConfig"><a ng-bind-html="ctrl.userConfigIcon()" ng-click="ctrl.userConfig()"></a></li>
 						 <li><a ng-bind-html="ctrl.loginIcon()" ng-click="ctrl.login()"></a></li>
 						</ul>
 
@@ -69,6 +71,7 @@
 <script src="/js/d3.min.js"></script>
 <script src="/js/nv.d3.min.js"></script>
 <script src="/js/angular-nvd3.min.js"></script>
+<script src="https://use.fontawesome.com/feb64cd0c6.js"></script>
 
 <script src="/js/app.js"></script>
 <script src="/js/confirm.js"></script>
@@ -78,5 +81,6 @@
 <script src="/js/admin.js"></script>
 <script src="/js/workerTools.js"></script>
 <script src="/js/trend.js"></script>
-
+<script src="/js/messages.js"></script>
+<script src="/js/userConfig.js"></script>
 </body></html>
