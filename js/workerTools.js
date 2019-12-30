@@ -118,6 +118,8 @@ app.controller("Worker", [ '$http', '$scope','globals', 'common', function($http
             if(answer) { 
                 $http.post('/applications',applications).then(
                     function(rep){
+                        ctrl.generated = rep.data.ops[0];
+                        $('#generatedPassword').show();
                         ctrl.displayApplications();    
                         if(temp_status == 'pending') ctrl.displayApplications('pending');
                         if(temp_status == 'refused') ctrl.displayApplications('refused');
@@ -162,3 +164,13 @@ app.controller("Worker", [ '$http', '$scope','globals', 'common', function($http
 
 
 
+
+
+
+// {"result":{"n":1,"opTime":{"ts":"6776355041759461377","t":1},"electionId":"7fffffff0000000000000001","ok":1,
+// "operationTime":"6776355041759461377","$clusterTime":{"clusterTime":"6776355041759461377","signature":
+// {"hash":"oAlH7GYI0iKhW2aHHyymwpPkpUQ=","keyId":"6769324953390022658"}}},"connection":
+// {"id":2,"host":"cluster0-shard-00-00-x2piz.mongodb.net","port":27017},
+// "ops":[{"email":"kazio@test.pl","password":"ZsX7DrDe","balance":2500,"limit":100000,"lastOperation":0,"_id":"5e0a730184b5c8206c9662f0"}],
+// "insertedCount":1,"insertedId":"5e0a730184b5c8206c9662f0","n":1,"opTime":{"ts":"6776355041759461377","t":1},"electionId":"7fffffff0000000000000001","ok":1,"operationTime":"6776355041759461377","$clusterTime":
+// {"clusterTime":"6776355041759461377","signature":{"hash":"oAlH7GYI0iKhW2aHHyymwpPkpUQ=","keyId":"6769324953390022658"}}}

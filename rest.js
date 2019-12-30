@@ -335,7 +335,7 @@ module.exports = function(url, req, rep, query, payload, session) {
             }
             break;
 
-        case '/applications': //TU!!!!!!!!!!!!!!!!!!!!!!!!!
+        case '/applications': 
             switch(req.method){
                 case 'GET':
                      var limit = parseInt(query.limit);
