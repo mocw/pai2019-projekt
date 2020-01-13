@@ -32,7 +32,7 @@ app.config(['$routeProvider', '$locationProvider', 'routes', function($routeProv
 app.controller("loginDialog", [ '$http', '$uibModalInstance', 'globals', function($http, $uibModalInstance,globals) {
     var ctrl = this;
     // devel: dla szybszego logowania
-    ctrl.creds = { email: 'test@gmail.com', password: 'test' };
+    ctrl.creds = { email: 'jim@beam.com', password: 'admin1' };
     ctrl.loginError = false;
 
     ctrl.tryLogin = function() {
@@ -71,7 +71,6 @@ app.controller("loginDialog", [ '$http', '$uibModalInstance', 'globals', functio
                 },
                 function(err) {
                     ctrl.applicationError = true;
-                    console.log(err.message);
                     ctrl.applicationAlert = function() {
                         return '<span class="label label-danger">Email jest zarejestrowany lub wniosek został już wysłany!</span>';
                     }  
@@ -108,7 +107,7 @@ app.controller('Menu', ['$http', '$rootScope', '$scope', '$location', '$uibModal
             function(rep) { 
                 globals.email = rep.data.email;
                 globals.isWorker = localStorage.getItem("isWorker");
-                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                
                 
                 refreshMenu();
 
@@ -145,7 +144,6 @@ app.controller('Menu', ['$http', '$rootScope', '$scope', '$location', '$uibModal
         ctrl.MessageIcon = function () {
             if(globals.email) {
                 $('#Messages').show();
-                //POLACZENIE Z BAZA I SPR. CZY SA NOWE WIADOMOSCI
                 return '<span class="fa fa-envelope" aria-hidden="true"></span>';
             } else {
                 $('#Messages').hide();
@@ -203,7 +201,7 @@ app.controller('Menu', ['$http', '$rootScope', '$scope', '$location', '$uibModal
         };
         
 
-        ctrl.login = function() { //!!!!!!!!!!!!!!!!!!!!!!!!
+        ctrl.login = function() { 
             if(globals.email) {
                 common.confirm({ title: 'Koniec pracy?', body: 'Chcesz wylogować ' + globals.email + '?' }, function(answer) {
                     if(answer) {    
@@ -232,7 +230,7 @@ app.controller('Menu', ['$http', '$rootScope', '$scope', '$location', '$uibModal
                     function(data) {
                         var isWorker=false;
                         globals.email = data.email;
-                        $http.post('/users', data).then( // !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        $http.post('/users', data).then( 
                             function(rep){
                                 globals.isWorker = rep.data._id;
                                 localStorage.setItem("isWorker", globals.isWorker);

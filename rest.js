@@ -99,6 +99,9 @@ module.exports = function(url, req, rep, query, payload, session) {
         case '/users':
                 switch(req.method){
                     case 'GET':
+                        if(!common.sessions[session].accountNo) {
+                            lib.sendJSONWithError(rep, 401, 'You are not logged in'); return;
+                        }
                         var cursor = common.accounts.find({});
                         cursor.project({
                             password: 0,
@@ -135,6 +138,9 @@ module.exports = function(url, req, rep, query, payload, session) {
         case '/workersAddDel':
             switch(req.method){
                 case 'GET':
+                    if(!common.sessions[session].accountNo) {
+                        lib.sendJSONWithError(rep, 401, 'You are not logged in'); return;
+                    } //!!!                    
                         common.accounts.aggregate([
                             {
                                 $lookup:
@@ -166,7 +172,6 @@ module.exports = function(url, req, rep, query, payload, session) {
                                 if(err){
                                     lib.sendJSONWithError(rep, 400, 'No such object'); return;
                                 } else {
-                                console.log("TUTEJ");
                                 lib.sendJSON(rep,result);
                                 }
                             });
@@ -235,7 +240,7 @@ module.exports = function(url, req, rep, query, payload, session) {
             }
             break;
 
-        case '/history': //???????????????????????????????????????????????
+        case '/history': 
             switch(req.method) {
                 case 'GET':
                     if(!common.sessions[session].accountNo) {
@@ -369,12 +374,17 @@ module.exports = function(url, req, rep, query, payload, session) {
                     }
                 break;
                 case 'POST':
-                console.log(payload._id + ' ' + payload.status);
+                console.log(payload._id + ' ' + payload.status + ' ' + payload.email);
+                common.accounts.findOne({ email: payload.email}, {}, function(err, account) { 
+                                if(account) {
+                                    lib.sendJSONWithError(rep, 406, 'Account already exists!');
+                                    return;
+                                }
                 common.applications.updateOne(
                     {_id: ObjectId(payload._id)},
                     {$set: {status: payload.status}}, function(err){
                         if(err){
-                            lib.sendJSONWithError(rep, 400, 'Application doesn\'t exst'); return;
+                            lib.sendJSONWithError(rep, 400, 'Application doesn\'t exist'); return;
                         } else {
                             if(payload.status != 'accepted'){
                                 lib.sendJSON(rep); return;
@@ -382,7 +392,7 @@ module.exports = function(url, req, rep, query, payload, session) {
                             common.accounts.insertOne({
                                 email: payload.email,
                                 password: generatePassword(), //generowanie hasła
-                                balance: 2500,
+                                balance: 0,
                                 limit: 100000,
                                 lastOperation: 0
                             },function(err,response){
@@ -394,7 +404,8 @@ module.exports = function(url, req, rep, query, payload, session) {
                                 }
                             }); 
                         }
-                    });
+                    });                                                 
+                });
                 break;
             }
             break;
