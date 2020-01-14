@@ -104,7 +104,10 @@ app.controller("Worker", [ '$http', '$scope','globals', 'common', function($http
                         common.showMessage('Wniosek odrzucony!');
                         
                     },
-                    function(err){}
+                    function(err){
+                        ctrl.displayApplications('pending');
+                        common.showError('Wniosek został już rozpatrzony!');
+                    }
                 );
             }
         });  
@@ -128,7 +131,7 @@ app.controller("Worker", [ '$http', '$scope','globals', 'common', function($http
                     function(err){ 
                         if(temp_status == 'pending') ctrl.displayApplications('pending');
                         if(temp_status == 'refused') ctrl.displayApplications('refused');
-                        common.showError('Konto już zostało utworzone lub wniosek nie istnieje!');
+                        common.showError('Konto zostało już utworzone!');
                 }
                 );
             }

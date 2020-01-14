@@ -393,7 +393,7 @@ module.exports = function(url, req, rep, query, payload, session) {
                                 email: payload.email,
                                 password: generatePassword(), //generowanie hasła
                                 balance: 0,
-                                limit: 100000,
+                                limit: 1,
                                 lastOperation: 0
                             },function(err,response){
                                 if(err){
