@@ -14,7 +14,7 @@ app.constant('routes', [
 	{ route: '/transfer', templateUrl: '/html/transfer.html', controller: 'Transfer', controllerAs: 'ctrl', menu: 'Przelew' },
     { route: '/history', templateUrl: '/html/history.html', controller: 'History', controllerAs: 'ctrl', menu: 'Historia' },
     { route: '/trend', templateUrl: '/html/trend.html', controller: 'Trend', controllerAs: 'ctrl', menu: 'Trend' },
-    { route: '/adminPanel', templateUrl: '/html/admin.html', controller: 'Admin', controllerAs: 'ctrl', menu: 'Panel Administracyjny'},
+    { route: '/adminPanel', templateUrl: '/html/admin.html', controller: 'Admin', controllerAs: 'ctrl', menu: 'Dodaj pracownika'},
     { route: '/workerTools', templateUrl: '/html/workerTools.html', controller: 'Worker', controllerAs: 'ctrl', menu: 'Dla pracowników'},
     { route: '/messages', templateUrl: '/html/messages.html', controller: 'Messages', controllerAs: 'ctrl', skipMenu: true},
     { route: '/userConfig', templateUrl: '/html/userConfig.html', controller: 'UserConfig', controllerAs: 'ctrl', skipMenu: true}
