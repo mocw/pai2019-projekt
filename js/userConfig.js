@@ -34,6 +34,7 @@ app.controller("UserConfig", [ '$http', '$scope','globals', 'common', function($
                 $http.post('/password', {"newPassword":ctrl.changePassword.newPassword}).then(
                     function(rep) {
                         common.showMessage( "Hasło zmienione!" );
+                        initVars();
                     },
                     function(err) {
                         common.showError( "Błąd!" );
