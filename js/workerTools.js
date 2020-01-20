@@ -16,6 +16,16 @@ app.controller("Worker", [ '$http', '$scope','globals', 'common', function($http
     ctrl.isWorker = function(){
         if(globals.isWorker === null) return false;
         return true;
+        // var isWorker = false;
+        // $http.post('/users', common.sessions[session]).then( 
+        //     function(rep){
+        //         globals.isWorker = rep.data._id;
+        //         if(globals.isWorker) isWorker = true;                                               
+        //     },
+        //     function(err){
+                
+        //     }                    
+        // );
     };
 
     ctrl.searchEmail = function(state) {

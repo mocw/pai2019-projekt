@@ -123,7 +123,7 @@ module.exports = function(url, req, rep, query, payload, session) {
                         //     lib.sendJSON(rep, docs);
                         // });
                     break;
-                    case 'POST': //!!!!!!!!!!!
+                    case 'POST': //WORKERS
                         common.workers.findOne({account_id: ObjectId(payload._id)}, {}, function (err,docs) {
                             if(err){
                                 lib.sendJSONWithError(rep, 400, 'No such object'); return;
