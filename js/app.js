@@ -194,7 +194,6 @@ app.controller('Menu', ['$http', '$rootScope', '$scope', '$location', '$uibModal
                 });
                 modalInstance.result.then(
                     function(data) {
-
                         refreshMenu();
                         $location.path('/');
                     });
