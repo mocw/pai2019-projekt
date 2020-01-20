@@ -38,7 +38,7 @@ app.controller("loginDialog", [ '$http', '$uibModalInstance', 'globals', functio
     ctrl.tryLogin = function() {
         $http.post('/login', ctrl.creds).then(
             function(rep) {
-                $uibModalInstance.close(rep.data); //!!!!!!!!!!!!!!!
+                $uibModalInstance.close(rep.data); 
             },
             function(err) {
                 ctrl.loginError = true;

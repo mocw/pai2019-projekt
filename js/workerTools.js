@@ -148,12 +148,6 @@ app.controller("Worker", [ '$http', '$scope','globals', 'common', function($http
           });
     };
 
-    // ctrl.showAcceptedApplications = function (){
-    //     ctrl.clear();
-    //     $("#accepted").show();
-    //     $("#acceptedMenu").css( "background-color", '#f0f0f0');
-    // };
-
     ctrl.showRefusedApplications = function (){
         ctrl.clear();
         initVars();
