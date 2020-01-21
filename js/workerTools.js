@@ -141,7 +141,7 @@ app.controller("Worker", [ '$http', '$scope','globals', 'common', function($http
                     function(err){ 
                         if(temp_status == 'pending') ctrl.displayApplications('pending');
                         if(temp_status == 'refused') ctrl.displayApplications('refused');
-                        common.showError('Konto zostało już utworzone!');
+                        common.showError('Konto zostało już utworzone lub wniosek nie istnieje!');
                 }
                 );
             }

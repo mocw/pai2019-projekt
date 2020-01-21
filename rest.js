@@ -374,7 +374,7 @@ module.exports = function(url, req, rep, query, payload, session) {
                     }
                 break;
                 case 'POST':
-                console.log(payload._id + ' ' + payload.status + ' ' + payload.email);
+                //console.log(payload._id + ' ' + payload.status + ' ' + payload.email);
                 common.accounts.findOne({ email: payload.email}, {}, function(err, account) { 
                                 if(account) {
                                     lib.sendJSONWithError(rep, 406, 'Account already exists!');
